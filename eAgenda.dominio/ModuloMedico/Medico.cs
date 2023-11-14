@@ -17,5 +17,23 @@ namespace eAgendaMedica.Dominio.ModuloMedico
 
         public List<Cirurgia> Cirurgias { get; set; }
 
+
+        public Medico()
+        {
+            Disponivel = true;
+        }
+
+        public Medico(string cRM, string nome, string telefone)
+        {
+            CRM = cRM;
+            Nome = nome;
+            Telefone = telefone;
+            Disponivel = true;
+        }
     }
+
+
+
+
+    
 }

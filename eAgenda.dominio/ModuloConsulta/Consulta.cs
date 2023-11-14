@@ -14,8 +14,19 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
 
         public Guid MedicoId { get; set; }
 
-        public List<Medico> Medicos { get; set; }
+        
+        public Consulta()
+        {
+            
+        }
 
-
+        public Consulta(string titulo, Medico medico, DateTime data, TimeSpan horaInicio, Guid medicoId)
+        {
+            Titulo = titulo;
+            Medico = medico;
+            Data = data;
+            this.horaInicio = horaInicio;
+            MedicoId = medicoId;
+        }
     }
 }

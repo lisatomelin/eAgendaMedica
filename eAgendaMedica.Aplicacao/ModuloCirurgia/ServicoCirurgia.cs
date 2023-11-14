@@ -59,16 +59,16 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
 
         public async Task<Result<List<Cirurgia>>> SelecionarTodosAsync()
         {
-            var categorias =  await repositorioCirurgia.SelecionarTodosAsync();
+            var cirurgias =  await repositorioCirurgia.SelecionarTodosAsync();
 
-            return Result.Ok(categorias);
+            return Result.Ok(cirurgias);
         }
 
         public async Task<Result<Cirurgia>> SelecionarPorIdAsync(Guid Id)
         {
-            var categoria =  await repositorioCirurgia.SelecionarPorIdAsync(Id);
+            var cirurgia =  await repositorioCirurgia.SelecionarPorIdAsync(Id);
 
-            return Result.Ok(categoria);
+            return Result.Ok(cirurgia);
         }
 
         private Result ValidarCirurgia(Cirurgia cirurgia)
