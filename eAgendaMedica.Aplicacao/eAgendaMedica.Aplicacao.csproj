@@ -8,9 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Compartilhado\" />
-    <Folder Include="ModuloMedico\" />
-    <Folder Include="ModuloConsulta\" />
-    <Folder Include="ModuloCirurgia\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentResults" Version="3.15.2" />
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eAgenda.dominio\eAgendaMedica.Dominio.csproj" />
   </ItemGroup>
 
   <ItemGroup>

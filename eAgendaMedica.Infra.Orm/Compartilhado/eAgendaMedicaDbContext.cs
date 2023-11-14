@@ -1,4 +1,5 @@
-﻿using eAgendaMedica.Dominio.ModuloCirurgia;
+﻿using eAgendaMedica.Dominio.Compartilhado;
+using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using eAgendaMedica.Dominio.ModuloMedico;
 using eAgendaMedica.Infra.Orm.ModuloCirurgia;
@@ -6,20 +7,20 @@ using eAgendaMedica.Infra.Orm.ModuloConsulta;
 using eAgendaMedica.Infra.Orm.ModuloMedico;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace eAgendaMedica.Infra.Orm.Compartilhado
 {
-    public class eAgendaMedicaDbContext : DbContext
+    public class eAgendaMedicaDbContext : DbContext, IContextoPersistencia
     {
         public eAgendaMedicaDbContext(DbContextOptions options) : base(options)
         {
         }
+                
 
-        public DbSet<Medico> Medicos { get; set; }
-
-        public DbSet<Cirurgia> Cirurgias { get; set; }
-
-        public DbSet<Consulta> Consultas { get; set; }
+        public async Task<bool> GravarAsync()
+        {
+            await SaveChangesAsync();
+            return true;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
