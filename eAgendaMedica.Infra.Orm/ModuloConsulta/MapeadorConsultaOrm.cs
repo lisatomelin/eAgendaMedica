@@ -1,0 +1,25 @@
+﻿using eAgendaMedica.Dominio.ModuloConsulta;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+
+namespace eAgendaMedica.Infra.Orm.ModuloConsulta
+{
+    public class MapeadorConsultaOrm : IEntityTypeConfiguration<Consulta>
+    {
+        public void Configure(EntityTypeBuilder<Consulta> builder)
+        {
+            builder.ToTable("TBConsulta");
+            builder.Property(x => x.Id).ValueGeneratedNever();
+            builder.Property(x => x.Titulo).IsRequired();
+            builder.Property(x => x.Data).IsRequired();
+            builder.Property(x => x.horaInicio).IsRequired();
+            builder.Property(x => x.horaTermino).IsRequired();
+
+            builder.HasOne(x => x.Medico).WithMany(x => x.Consultas)
+            .HasForeignKey(x => x.MedicoId)
+            .HasConstraintName("FK_TBMedico_TBConsulta")
+            .OnDelete(DeleteBehavior.NoAction);
+        }
+    }
+}

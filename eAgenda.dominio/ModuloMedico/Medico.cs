@@ -1,4 +1,6 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
+using eAgendaMedica.Dominio.ModuloCirurgia;
+using eAgendaMedica.Dominio.ModuloConsulta;
 
 namespace eAgendaMedica.Dominio.ModuloMedico
 {
@@ -10,6 +12,10 @@ namespace eAgendaMedica.Dominio.ModuloMedico
         public string Telefone { get; set; }
 
         public bool Disponivel { get; set; }
+
+        public List<Consulta> Consultas { get; set; }
+
+        public List<Cirurgia> Cirurgias { get; set; }
 
     }
 }

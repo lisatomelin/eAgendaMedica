@@ -1,6 +1,9 @@
 ﻿using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using eAgendaMedica.Dominio.ModuloMedico;
+using eAgendaMedica.Infra.Orm.ModuloCirurgia;
+using eAgendaMedica.Infra.Orm.ModuloConsulta;
+using eAgendaMedica.Infra.Orm.ModuloMedico;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -20,14 +23,16 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Medico>();
+            modelBuilder.ApplyConfiguration(new MapeadorCirurgiaOrm());
 
-            modelBuilder.Entity<Cirurgia>();
+            modelBuilder.ApplyConfiguration(new MapeadorConsultaOrm());
 
-            modelBuilder.Entity<Consulta>();
+            modelBuilder.ApplyConfiguration(new MapeadorMedicoOrm());
+
+
 
             base.OnModelCreating(modelBuilder);
-        }
 
+        }
     }
 }
