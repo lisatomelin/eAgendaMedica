@@ -10,9 +10,9 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
         protected eAgendaMedicaDbContext dbContext;
         protected DbSet<TEntidade> registros;
 
-        public RepositorioBase(eAgendaMedicaDbContext dbContext)
+        public RepositorioBase(IContextoPersistencia ctx)
         {
-            this.dbContext = dbContext;
+            this.dbContext = (eAgendaMedicaDbContext)ctx;
             this.registros = dbContext.Set<TEntidade>();
         }
 
@@ -34,7 +34,7 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
             registros.Remove(registro);
         }
 
-        public async Task<TEntidade> SelecionarPorIdAsync(Guid Id)
+        public async virtual  Task<TEntidade> SelecionarPorIdAsync(Guid Id)
         {
             return await registros.SingleOrDefaultAsync(x => x.Id == Id);
         }

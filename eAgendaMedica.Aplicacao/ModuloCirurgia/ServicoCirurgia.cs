@@ -47,8 +47,10 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
 
         }
 
-        public async Task<Result> ExcluirAsync(Cirurgia cirurgia)
+        public async Task<Result> ExcluirAsync(Guid id)
         {
+            var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(id);
+
             repositorioCirurgia.Excluir(cirurgia);
 
             await contextoPersistencia.GravarAsync();

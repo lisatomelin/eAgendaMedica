@@ -12,7 +12,7 @@ using eAgendaMedica.Infra.Orm.Compartilhado;
 namespace eAgendaMedica.Infra.Orm.Migrations
 {
     [DbContext(typeof(eAgendaMedicaDbContext))]
-    [Migration("20231114195058_Config-Inicial")]
+    [Migration("20231116182802_Config-Inicial")]
     partial class ConfigInicial
     {
         /// <inheritdoc />

@@ -32,22 +32,11 @@ namespace eAgendaMedica.ConsoleApp
 
             var dbContext = new eAgendaMedicaDbContext(optionsBuilder.Options);
 
-            var repositorioMedico = new RepositorioMedicoOrm(dbContext);
-            repositorioMedico.InserirAsync(novoMedico);
+            dbContext.Add(novoMedico);
+            dbContext.SaveChanges();            
+
 
             
-
-            var novaConsulta = new Consulta();
-            novaConsulta.Titulo = "Cardiologista";
-            //novaConsulta.horaInicio = 10;
-            //novaConsulta.horaTermino = 11;
-            //novaConsulta.Medico = novoMedico;
-
-            var repositorioConsulta = new RepositorioConsultaOrm(dbContext);
-            repositorioConsulta.InserirAsync(novaConsulta);
-
-
-            dbContext.SaveChanges();
         }
     }
 }

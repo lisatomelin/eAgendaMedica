@@ -1,4 +1,5 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
+using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using FluentResults;
 
@@ -15,12 +16,15 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
             this.contextoPersistencia = contextoPersistencia;
         }
 
+      
+
         public async Task<Result<Consulta>> InserirAsync(Consulta consulta)
         {
             var resultadoValidacao = ValidarConsulta(consulta);
 
-            if (resultadoValidacao.IsFailed)
+            if (resultadoValidacao.IsFailed)            
                 return Result.Fail(resultadoValidacao.Errors);
+            
 
             await repositorioConsulta.InserirAsync(consulta);
 
@@ -30,7 +34,7 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
         }
 
-        public async Task<Result<Consulta>> EditarAsync(Consulta  consulta)
+        public async Task<Result<Consulta>> EditarAsync(Consulta consulta)
         {
             var resultadoValidacao = ValidarConsulta(consulta);
 
@@ -46,8 +50,12 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
         }
 
-        public async Task<Result> ExcluirAsync(Consulta consulta)
+        
+
+        public async Task<Result> ExcluirAsync(Guid id)
         {
+            var consulta = await repositorioConsulta.SelecionarPorIdAsync(id);
+
             repositorioConsulta.Excluir(consulta);
 
             await contextoPersistencia.GravarAsync();
@@ -55,6 +63,8 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
             return Result.Ok();
 
         }
+
+
 
         public async Task<Result<List<Consulta>>> SelecionarTodosAsync()
         {
@@ -70,9 +80,7 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
             return Result.Ok(consulta);
         }
 
-
-
-        private Result ValidarConsulta(Consulta consulta)
+        public Result ValidarConsulta(Consulta consulta)
         {
             ValidadorConsulta validador = new ValidadorConsulta();
 
@@ -90,5 +98,11 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
             return Result.Ok();
         }
+
+
+
     }
+
+    
 }
+
