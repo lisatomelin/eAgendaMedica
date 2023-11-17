@@ -14,10 +14,10 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
 
         public Guid MedicoId { get; set; }
 
-        
+
         public Consulta()
         {
-            
+
         }
 
         public Consulta(string titulo, Medico medico, DateTime data, TimeSpan horaInicio, Guid medicoId)

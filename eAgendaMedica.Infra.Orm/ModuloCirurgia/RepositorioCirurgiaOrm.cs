@@ -1,8 +1,6 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
 using eAgendaMedica.Dominio.ModuloCirurgia;
-using eAgendaMedica.Dominio.ModuloMedico;
 using eAgendaMedica.Infra.Orm.Compartilhado;
-using Microsoft.EntityFrameworkCore;
 
 namespace eAgendaMedica.Infra.Orm.ModuloCirurgia
 {
@@ -13,6 +11,6 @@ namespace eAgendaMedica.Infra.Orm.ModuloCirurgia
 
         }
 
-       
+
     }
 }

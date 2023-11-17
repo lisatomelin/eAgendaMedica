@@ -15,7 +15,7 @@ namespace eAgendaMedica.Dominio.ModuloCirurgia
 
         public Cirurgia()
         {
-            
+
         }
 
         public Cirurgia(string titulo, DateTime data, TimeSpan horaInicio)
@@ -23,7 +23,7 @@ namespace eAgendaMedica.Dominio.ModuloCirurgia
             Titulo = titulo;
             Data = data;
             this.horaInicio = horaInicio;
-           
+
         }
     }
 }

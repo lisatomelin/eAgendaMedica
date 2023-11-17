@@ -13,7 +13,7 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
             CreateMap<Cirurgia, VisualizarCirurgiaViewModel>();
 
 
-            CreateMap<InserirCirurgiaViewModel,Cirurgia>();
+            CreateMap<InserirCirurgiaViewModel, Cirurgia>();
 
             CreateMap<EditarCirurgiaViewModel, Cirurgia>();
         }

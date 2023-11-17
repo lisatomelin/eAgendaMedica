@@ -1,5 +1,4 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
-using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using FluentResults;
 
@@ -16,15 +15,15 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
             this.contextoPersistencia = contextoPersistencia;
         }
 
-      
+
 
         public async Task<Result<Consulta>> InserirAsync(Consulta consulta)
         {
             var resultadoValidacao = ValidarConsulta(consulta);
 
-            if (resultadoValidacao.IsFailed)            
+            if (resultadoValidacao.IsFailed)
                 return Result.Fail(resultadoValidacao.Errors);
-            
+
 
             await repositorioConsulta.InserirAsync(consulta);
 
@@ -50,7 +49,7 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
         }
 
-        
+
 
         public async Task<Result> ExcluirAsync(Guid id)
         {
@@ -103,6 +102,6 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
     }
 
-    
+
 }
 

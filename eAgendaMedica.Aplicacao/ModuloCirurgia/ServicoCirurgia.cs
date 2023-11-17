@@ -61,14 +61,14 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
 
         public async Task<Result<List<Cirurgia>>> SelecionarTodosAsync()
         {
-            var cirurgias =  await repositorioCirurgia.SelecionarTodosAsync();
+            var cirurgias = await repositorioCirurgia.SelecionarTodosAsync();
 
             return Result.Ok(cirurgias);
         }
 
         public async Task<Result<Cirurgia>> SelecionarPorIdAsync(Guid Id)
         {
-            var cirurgia =  await repositorioCirurgia.SelecionarPorIdAsync(Id);
+            var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(Id);
 
             return Result.Ok(cirurgia);
         }
@@ -82,9 +82,9 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
             List<Error> erros = new List<Error>();
 
             foreach (var erro in resultadoValidacao.Errors)
-            
+
                 erros.Add(new Error(erro.ErrorMessage));
-            
+
 
             if (erros.Any())
                 return Result.Fail(erros.ToArray());

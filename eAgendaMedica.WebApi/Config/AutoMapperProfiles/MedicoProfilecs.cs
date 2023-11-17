@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using eAgendaMedica.Dominio.ModuloConsulta;
 using eAgendaMedica.Dominio.ModuloMedico;
 using eAgendaMedica.WebApi.ViewModels;
 

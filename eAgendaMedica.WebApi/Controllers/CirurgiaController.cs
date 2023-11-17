@@ -8,7 +8,7 @@ namespace eAgendaMedica.WebApi.Controllers
 {
     [Route("api/cirurgias")]
     [ApiController]
-    public class CirurgiaController : ControllerBase
+    public class CirurgiaController : ApiControllerBase
     {
         private readonly ServicoCirurgia servicoCirurgia;
         private readonly IMapper mapeador;
@@ -18,9 +18,11 @@ namespace eAgendaMedica.WebApi.Controllers
             this.servicoCirurgia = servicoCirurgia;
             this.mapeador = mapeador;
         }
-               
+
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<ListarCirurgiaViewModel>), 200)]
+        [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarTodos()
         {
             var cirurgiasResult = await servicoCirurgia.SelecionarTodosAsync();
@@ -28,11 +30,15 @@ namespace eAgendaMedica.WebApi.Controllers
             var viewModel = mapeador.Map<List<ListarCirurgiaViewModel>>(cirurgiasResult.Value);
 
             return Ok(viewModel);
+           
 
         }
 
 
         [HttpGet("visualizacao-completa/{id}")]
+        [ProducesResponseType(typeof(VisualizarCirurgiaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarPorId(Guid id)
         {
             var cirurgiaResult = await servicoCirurgia.SelecionarPorIdAsync(id);
@@ -45,6 +51,10 @@ namespace eAgendaMedica.WebApi.Controllers
 
 
         [HttpPost]
+        [ProducesResponseType(typeof(InserirCirurgiaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 400)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Inserir(InserirCirurgiaViewModel viewModel)
         {
             var cirurgia = mapeador.Map<Cirurgia>(viewModel);
@@ -59,6 +69,10 @@ namespace eAgendaMedica.WebApi.Controllers
 
 
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(EditarCirurgiaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 400)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Editar(Guid id, EditarCirurgiaViewModel viewModel)
         {
             var selecaoCirurgiaResult = await servicoCirurgia.SelecionarPorIdAsync(id);
@@ -77,6 +91,9 @@ namespace eAgendaMedica.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> Excluir(Guid id)
         {
             var cirurgiaResult = await servicoCirurgia.ExcluirAsync(id);

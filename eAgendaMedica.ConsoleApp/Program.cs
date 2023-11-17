@@ -1,8 +1,5 @@
-﻿using eAgendaMedica.Dominio.ModuloConsulta;
-using eAgendaMedica.Dominio.ModuloMedico;
+﻿using eAgendaMedica.Dominio.ModuloMedico;
 using eAgendaMedica.Infra.Orm.Compartilhado;
-using eAgendaMedica.Infra.Orm.ModuloConsulta;
-using eAgendaMedica.Infra.Orm.ModuloMedico;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -33,10 +30,10 @@ namespace eAgendaMedica.ConsoleApp
             var dbContext = new eAgendaMedicaDbContext(optionsBuilder.Options);
 
             dbContext.Add(novoMedico);
-            dbContext.SaveChanges();            
+            dbContext.SaveChanges();
 
 
-            
+
         }
     }
 }

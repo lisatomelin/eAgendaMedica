@@ -1,7 +1,4 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
-using eAgendaMedica.Dominio.ModuloCirurgia;
-using eAgendaMedica.Dominio.ModuloConsulta;
-using eAgendaMedica.Dominio.ModuloMedico;
 using eAgendaMedica.Infra.Orm.ModuloCirurgia;
 using eAgendaMedica.Infra.Orm.ModuloConsulta;
 using eAgendaMedica.Infra.Orm.ModuloMedico;
@@ -14,7 +11,7 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
         public eAgendaMedicaDbContext(DbContextOptions options) : base(options)
         {
         }
-                
+
 
         public async Task<bool> GravarAsync()
         {

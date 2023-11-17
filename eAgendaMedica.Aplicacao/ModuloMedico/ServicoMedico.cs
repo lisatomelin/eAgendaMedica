@@ -1,5 +1,4 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
-using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloMedico;
 using FluentResults;
 
@@ -50,6 +49,9 @@ namespace eAgendaMedica.Aplicacao.ModuloMedico
         public async Task<Result> ExcluirAsync(Guid id)
         {
             var medico = await repositorioMedico.SelecionarPorIdAsync(id);
+
+            if (medico == null)
+                return Result.Fail($"Médico {id} não encontrado");
 
             repositorioMedico.Excluir(medico);
 

@@ -1,4 +1,3 @@
-using AutoMapper;
 using eAgendaMedica.Aplicacao.ModuloCirurgia;
 using eAgendaMedica.Aplicacao.ModuloConsulta;
 using eAgendaMedica.Aplicacao.ModuloMedico;
@@ -11,16 +10,14 @@ using eAgendaMedica.Infra.Orm.ModuloCirurgia;
 using eAgendaMedica.Infra.Orm.ModuloConsulta;
 using eAgendaMedica.Infra.Orm.ModuloMedico;
 using eAgendaMedica.WebApi.Config.AutoMapperProfiles;
-using eAgendaMedica.WebApi.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 
 namespace eAgendaMedica.WebApi
 {
     public class Program
     {
-                
+
 
         public static void Main(string[] args)
         {

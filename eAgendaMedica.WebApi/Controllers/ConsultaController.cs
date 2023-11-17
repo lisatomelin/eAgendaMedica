@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using eAgendaMedica.Aplicacao.ModuloCirurgia;
 using eAgendaMedica.Aplicacao.ModuloConsulta;
-using eAgendaMedica.Dominio.ModuloCirurgia;
+using eAgendaMedica.Dominio.ModuloConsulta;
 using eAgendaMedica.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ namespace eAgendaMedica.WebApi.Controllers
 
     [Route("api/consultas")]
     [ApiController]
-    public class ConsultaController : ControllerBase
+    public class ConsultaController : ApiControllerBase
     {
         private readonly ServicoConsulta servicoConsulta;
         private readonly IMapper mapeador;
@@ -21,19 +20,10 @@ namespace eAgendaMedica.WebApi.Controllers
             this.mapeador = mapeador;
         }
 
-        [HttpGet]
-
-        public async Task<IActionResult> Get()
-        {
-            var consultas = await servicoConsulta.SelecionarTodosAsync();
-
-            var viewModel = mapeador.Map<List<ListarConsultaViewModel>>(consultas.Value);
-
-            return Ok(viewModel);
-
-        }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<ListarConsultaViewModel>), 200)]
+        [ProducesResponseType(typeof(string[]), 500)]
 
         public async Task<IActionResult> SelecionarTodos()
         {
@@ -45,7 +35,11 @@ namespace eAgendaMedica.WebApi.Controllers
 
         }
 
+
         [HttpGet("visualizacao-completa/{id}")]
+        [ProducesResponseType(typeof(VisualizarConsultaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
 
         public async Task<IActionResult> SelecionarPorId(Guid id)
         {
@@ -55,6 +49,60 @@ namespace eAgendaMedica.WebApi.Controllers
 
             return Ok(viewModel);
 
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(InserirConsultaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 400)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Inserir(InserirConsultaViewModel viewModel)
+        {
+            var consulta = mapeador.Map<Consulta>(viewModel);
+
+            var consultaResult = await servicoConsulta.InserirAsync(consulta);
+
+            if (consultaResult.IsFailed)
+                return BadRequest(consultaResult.Errors);
+
+            return Ok(viewModel);
+        }
+
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(EditarConsultaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 400)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Editar(Guid id, EditarConsultaViewModel viewModel)
+        {
+            var selecaoConsultaResult = await servicoConsulta.SelecionarPorIdAsync(id);
+
+            if (selecaoConsultaResult.IsFailed)
+                return NotFound(selecaoConsultaResult.Errors);
+
+            var consulta = mapeador.Map(viewModel, selecaoConsultaResult.Value);
+
+            var consultaResult = await servicoConsulta.EditarAsync(consulta);
+
+            if (consultaResult.IsFailed)
+                return BadRequest(consultaResult.Errors);
+
+            return Ok(viewModel);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> Excluir(Guid id)
+        {
+            var consultaResult = await servicoConsulta.ExcluirAsync(id);
+
+            if (consultaResult.IsFailed)
+                return NotFound(consultaResult.Errors);
+
+            return Ok();
         }
     }
 }
