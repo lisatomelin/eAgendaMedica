@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using eAgendaMedica.Aplicacao.ModuloMedico;
 using eAgendaMedica.Dominio.ModuloMedico;
-using eAgendaMedica.WebApi.ViewModels;
+using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eAgendaMedica.WebApi.Controllers
@@ -51,11 +51,11 @@ namespace eAgendaMedica.WebApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(InserirMedicoViewModel), 200)]
+        [ProducesResponseType(typeof(FormsMedicoViewModel), 200)]
         [ProducesResponseType(typeof(string[]), 400)]
         [ProducesResponseType(typeof(string[]), 404)]
         [ProducesResponseType(typeof(string[]), 500)]
-        public async Task<IActionResult> Inserir(InserirMedicoViewModel viewModel)
+        public async Task<IActionResult> Inserir(FormsMedicoViewModel viewModel)
         {
             var medico = mapeador.Map<Medico>(viewModel);
 
@@ -69,11 +69,11 @@ namespace eAgendaMedica.WebApi.Controllers
 
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(EditarMedicoViewModel), 200)]
+        [ProducesResponseType(typeof(FormsMedicoViewModel), 200)]
         [ProducesResponseType(typeof(string[]), 400)]
         [ProducesResponseType(typeof(string[]), 404)]
         [ProducesResponseType(typeof(string[]), 500)]
-        public async Task<IActionResult> Editar(Guid id, EditarMedicoViewModel viewModel)
+        public async Task<IActionResult> Editar(Guid id, FormsMedicoViewModel viewModel)
         {
             var selecaoMedicoResult = await servicoMedico.SelecionarPorIdAsync(id);
 

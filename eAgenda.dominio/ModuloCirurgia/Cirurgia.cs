@@ -7,8 +7,8 @@ namespace eAgendaMedica.Dominio.ModuloCirurgia
     {
         public string Titulo { get; set; }
         public DateTime Data { get; set; }
-        public TimeSpan horaInicio { get; set; }
-        public TimeSpan horaTermino { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraTermino { get; set; }
 
         public List<Medico> Medicos { get; set; }
 
@@ -22,7 +22,7 @@ namespace eAgendaMedica.Dominio.ModuloCirurgia
         {
             Titulo = titulo;
             Data = data;
-            this.horaInicio = horaInicio;
+            this.HoraInicio = horaInicio;
 
         }
     }

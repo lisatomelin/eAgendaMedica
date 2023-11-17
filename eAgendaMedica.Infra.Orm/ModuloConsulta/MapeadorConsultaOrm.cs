@@ -13,8 +13,8 @@ namespace eAgendaMedica.Infra.Orm.ModuloConsulta
             builder.Property(x => x.Id).ValueGeneratedNever();
             builder.Property(x => x.Titulo).IsRequired();
             builder.Property(x => x.Data).IsRequired();
-            builder.Property(x => x.horaInicio).IsRequired();
-            builder.Property(x => x.horaTermino).IsRequired();
+            builder.Property(x => x.HoraInicio).IsRequired();
+            builder.Property(x => x.HoraTermino).IsRequired();
 
             builder.HasOne(x => x.Medico).WithMany(x => x.Consultas)
             .HasForeignKey(x => x.MedicoId)

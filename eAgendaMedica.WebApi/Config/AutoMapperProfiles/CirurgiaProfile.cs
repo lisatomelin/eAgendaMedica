@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eAgendaMedica.Dominio.ModuloCirurgia;
-using eAgendaMedica.WebApi.ViewModels;
+using eAgendaMedica.Dominio.ModuloMedico;
+using eAgendaMedica.WebApi.ViewModels.CirugiaViewModel;
 
 namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
 {
@@ -10,12 +11,32 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
         {
             CreateMap<Cirurgia, ListarCirurgiaViewModel>();
 
-            CreateMap<Cirurgia, VisualizarCirurgiaViewModel>();
+            CreateMap<Cirurgia, VisualizarCirurgiaViewModel>()
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh:mm")))
+                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh:mm")))
+                .ForMember(destino => destino.Medicos, opt => opt.Ignore());
+
+            CreateMap<FormsCirurgiaViewModel, Cirurgia>()
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh:mm")))
+                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh:mm")))
+                .ForMember(destino => destino.Medicos, opt => opt.Ignore())
+                .AfterMap<FormsCirurgiaMappingAction>();
+        }
 
 
-            CreateMap<InserirCirurgiaViewModel, Cirurgia>();
+        public class FormsCirurgiaMappingAction : IMappingAction<FormsCirurgiaViewModel, Cirurgia>
+        {
+            private readonly IRepositorioMedico repositorioMedico;
 
-            CreateMap<EditarCirurgiaViewModel, Cirurgia>();
+            public FormsCirurgiaMappingAction(IRepositorioMedico repositorioMedico)
+            {
+                this.repositorioMedico = repositorioMedico;
+            }
+
+            public void Process(FormsCirurgiaViewModel source, Cirurgia destination, ResolutionContext context)
+            {
+                destination.Medicos = repositorioMedico.SelecionarMuitos(source.MedicosSelecionados);
+            }
         }
     }
 }

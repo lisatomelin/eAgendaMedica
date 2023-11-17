@@ -9,9 +9,12 @@ using eAgendaMedica.Infra.Orm.Compartilhado;
 using eAgendaMedica.Infra.Orm.ModuloCirurgia;
 using eAgendaMedica.Infra.Orm.ModuloConsulta;
 using eAgendaMedica.Infra.Orm.ModuloMedico;
+using eAgendaMedica.WebApi.Config;
 using eAgendaMedica.WebApi.Config.AutoMapperProfiles;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 
 namespace eAgendaMedica.WebApi
 {
@@ -26,6 +29,20 @@ namespace eAgendaMedica.WebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.Configure<ApiBehaviorOptions>(config =>
+            {
+                config.SuppressModelStateInvalidFilter = true;
+            });
+
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.MapType<TimeSpan>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Example = new OpenApiString("00:00:00")
+                });
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
@@ -57,6 +74,8 @@ namespace eAgendaMedica.WebApi
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ManipuladorExcecoes>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

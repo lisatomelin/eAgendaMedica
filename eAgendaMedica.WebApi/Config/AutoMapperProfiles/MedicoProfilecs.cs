@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using eAgendaMedica.Dominio.ModuloMedico;
-using eAgendaMedica.WebApi.ViewModels;
+using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
 
 namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
 {
@@ -12,9 +12,9 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
 
             CreateMap<Medico, VisualizarMedicoViewModel>();
 
-            CreateMap<InserirMedicoViewModel, Medico>();
+            CreateMap<FormsMedicoViewModel, Medico>();
 
-            CreateMap<EditarMedicoViewModel, Medico>();
+           
         }
     }
 }
