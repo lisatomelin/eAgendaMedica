@@ -11,6 +11,11 @@ namespace eAgendaMedica.WebApi.ViewModels.ConsultaViewModel
         public TimeSpan HoraTermino { get; set; }
 
         public Guid MedicoId { get; set; }
+
+        public FormsConsultaViewModel(Guid medicoId)
+        {
+            MedicoId = new Guid();
+        }
     }
 
 }

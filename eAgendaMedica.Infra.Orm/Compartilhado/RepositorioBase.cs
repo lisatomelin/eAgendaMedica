@@ -34,12 +34,17 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
             registros.Remove(registro);
         }
 
+        public virtual TEntidade SelecionarPorId(Guid id)
+        {
+            return registros.SingleOrDefault(x => x.Id == id);
+        }
+
         public async virtual Task<TEntidade> SelecionarPorIdAsync(Guid Id)
         {
             return await registros.SingleOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<List<TEntidade>> SelecionarTodosAsync()
+        public async virtual Task<List<TEntidade>> SelecionarTodosAsync()
         {
             return await registros.ToListAsync();
         }

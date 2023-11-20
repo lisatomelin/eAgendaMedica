@@ -25,7 +25,7 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
             Titulo = titulo;
             Medico = medico;
             Data = data;
-            this.HoraInicio = horaInicio;
+            HoraInicio = horaInicio;
             MedicoId = medicoId;
         }
     }

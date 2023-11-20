@@ -14,7 +14,7 @@ namespace eAgendaMedica.Infra.Orm.ModuloMedico
             builder.Property(x => x.CRM).IsRequired();
             builder.Property(x => x.Nome).IsRequired();
             builder.Property(x => x.Telefone).IsRequired();
-            builder.Property(x => x.Disponivel).IsRequired();
+            builder.Property(x => x.Disponivel).IsRequired().HasDefaultValue(true);
 
             builder.HasMany(x => x.Cirurgias)
             .WithMany(x => x.Medicos)

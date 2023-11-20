@@ -14,8 +14,9 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
 
             CreateMap<Consulta, VisualizarConsultaViewModel>()
-                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
-                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
+                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh:mm")))
+                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh:mm")))
+                 .ForMember(destino => destino.Medico, opt => opt.MapFrom(origem => origem.Medico));
 
             CreateMap<FormsConsultaViewModel, Consulta>()
                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))

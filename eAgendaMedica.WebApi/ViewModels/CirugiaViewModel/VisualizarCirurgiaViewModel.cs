@@ -1,4 +1,6 @@
-﻿namespace eAgendaMedica.WebApi.ViewModels.CirugiaViewModel
+﻿using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
+
+namespace eAgendaMedica.WebApi.ViewModels.CirugiaViewModel
 {
     public class VisualizarCirurgiaViewModel
     {
@@ -8,7 +10,15 @@
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraTermino { get; set; }
 
-        public List<string> Medicos { get; set; }
+        public List<ListarMedicoViewModel> Medicos { get; set; }
+
+
+        public VisualizarCirurgiaViewModel()
+        {
+            Medicos = new List<ListarMedicoViewModel>();
+        }
+
+
     }
 
 }

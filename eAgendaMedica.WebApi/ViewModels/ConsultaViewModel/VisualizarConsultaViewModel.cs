@@ -1,4 +1,5 @@
 ﻿using eAgendaMedica.Dominio.ModuloMedico;
+using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
 
 namespace eAgendaMedica.WebApi.ViewModels.ConsultaViewModel
 {
@@ -10,7 +11,13 @@ namespace eAgendaMedica.WebApi.ViewModels.ConsultaViewModel
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraTermino { get; set; }
 
-        public Guid MedicoId { get; set; }
+        public ListarMedicoViewModel Medico { get; set; }
+
+        public VisualizarConsultaViewModel() 
+        { 
+            Medico = new ListarMedicoViewModel();
+        
+        }
     }
 
 }

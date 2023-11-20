@@ -6,7 +6,14 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
     {
         public ValidadorConsulta()
         {
-            RuleFor(x => x.Medico).NotNull().NotEmpty();
+            RuleFor(x => x.Titulo)
+          .NotNull().NotEmpty();
+
+            RuleFor(x => x.HoraInicio)
+            .NotNull().NotEmpty();
+
+            RuleFor(x => x.HoraTermino)
+            .NotNull().NotEmpty();
         }
     }
 }

@@ -1,3 +1,5 @@
+using eAgenda.WebApi.Config;
+using eAgenda.WebApi.Config.AutomapperConfig;
 using eAgendaMedica.Aplicacao.ModuloCirurgia;
 using eAgendaMedica.Aplicacao.ModuloConsulta;
 using eAgendaMedica.Aplicacao.ModuloMedico;
@@ -44,34 +46,15 @@ namespace eAgendaMedica.WebApi
                 });
             });
 
-            var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
-            builder.Services.AddDbContext<IContextoPersistencia, eAgendaMedicaDbContext>(optionsBuilder =>
-            {
-                optionsBuilder.UseSqlServer(connectionString);
+            builder.Services.ConfigurarSerilog(builder.Logging);
+            builder.Services.ConfigurarAutoMapper();
+            builder.Services.ConfigurarInjecaoDependencia(builder.Configuration);
+            builder.Services.ConfigurarSwagger();
 
-            });
+            builder.Services.ConfigurarControllers();
 
-            builder.Services.AddTransient<IRepositorioConsulta, RepositorioConsultaOrm>();
-            builder.Services.AddTransient<ServicoConsulta>();
 
-            builder.Services.AddTransient<IRepositorioCirurgia, RepositorioCirurgiaOrm>();
-            builder.Services.AddTransient<ServicoCirurgia>();
-
-            builder.Services.AddTransient<IRepositorioMedico, RepositorioMedicoOrm>();
-            builder.Services.AddTransient<ServicoMedico>();
-
-            builder.Services.AddAutoMapper(config =>
-            {
-                config.AddProfile<MedicoProfile>();
-                config.AddProfile<ConsultaProfile>();
-                config.AddProfile<CirurgiaProfile>();
-
-            });
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 

@@ -20,7 +20,7 @@ namespace eAgendaMedica.Dominio.ModuloMedico
 
         public Medico()
         {
-            Disponivel = true;
+            
         }
 
         public Medico(string cRM, string nome, string telefone)
@@ -28,7 +28,7 @@ namespace eAgendaMedica.Dominio.ModuloMedico
             CRM = cRM;
             Nome = nome;
             Telefone = telefone;
-            Disponivel = true;
+            
         }
     }
 

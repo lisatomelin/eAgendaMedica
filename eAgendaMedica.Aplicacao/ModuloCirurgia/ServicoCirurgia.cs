@@ -51,6 +51,10 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
         {
             var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(id);
 
+
+            if (cirurgia == null)
+                return Result.Fail($"Cirurgia {id} não encontrada");
+
             repositorioCirurgia.Excluir(cirurgia);
 
             await contextoPersistencia.GravarAsync();

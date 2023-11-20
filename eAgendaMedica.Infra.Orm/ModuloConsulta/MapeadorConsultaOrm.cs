@@ -16,7 +16,8 @@ namespace eAgendaMedica.Infra.Orm.ModuloConsulta
             builder.Property(x => x.HoraInicio).IsRequired();
             builder.Property(x => x.HoraTermino).IsRequired();
 
-            builder.HasOne(x => x.Medico).WithMany(x => x.Consultas)
+            builder.HasOne(x => x.Medico)
+            .WithMany(x => x.Consultas)
             .HasForeignKey(x => x.MedicoId)
             .HasConstraintName("FK_TBMedico_TBConsulta")
             .OnDelete(DeleteBehavior.NoAction);
