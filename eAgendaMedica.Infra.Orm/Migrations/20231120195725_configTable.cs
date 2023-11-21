@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace eAgendaMedica.Infra.Orm.Migrations
 {
     /// <inheritdoc />
-    public partial class ConfigInicial : Migration
+    public partial class configTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +18,8 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    horaInicio = table.Column<TimeSpan>(type: "time", nullable: false),
-                    horaTermino = table.Column<TimeSpan>(type: "time", nullable: false)
+                    HoraInicio = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HoraTermino = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +34,7 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                     CRM = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Disponivel = table.Column<bool>(type: "bit", nullable: false)
+                    Disponivel = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -47,8 +48,8 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    horaInicio = table.Column<TimeSpan>(type: "time", nullable: false),
-                    horaTermino = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HoraInicio = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HoraTermino = table.Column<TimeSpan>(type: "time", nullable: false),
                     MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

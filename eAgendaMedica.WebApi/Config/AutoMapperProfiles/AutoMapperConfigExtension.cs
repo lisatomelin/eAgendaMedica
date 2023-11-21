@@ -1,5 +1,4 @@
 ﻿using eAgendaMedica.WebApi.Config.AutoMapperProfiles;
-using eAgendaMedicaApi.Config.AutomapperConfig;
 
 namespace eAgenda.WebApi.Config.AutomapperConfig
 {

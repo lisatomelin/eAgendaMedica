@@ -1,7 +1,7 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using eAgendaMedica.Infra.Orm.Compartilhado;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace eAgendaMedica.Infra.Orm.ModuloConsulta
 {

@@ -12,8 +12,8 @@ using eAgendaMedica.Infra.Orm.Compartilhado;
 namespace eAgendaMedica.Infra.Orm.Migrations
 {
     [DbContext(typeof(eAgendaMedicaDbContext))]
-    [Migration("20231116182802_Config-Inicial")]
-    partial class ConfigInicial
+    [Migration("20231120195725_configTable")]
+    partial class configTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,15 +48,15 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraTermino")
+                        .HasColumnType("time");
+
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("horaInicio")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("horaTermino")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -71,18 +71,18 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraTermino")
+                        .HasColumnType("time");
+
                     b.Property<Guid>("MedicoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("horaInicio")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("horaTermino")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -101,7 +101,9 @@ namespace eAgendaMedica.Infra.Orm.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Disponivel")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Nome")
                         .IsRequired()
