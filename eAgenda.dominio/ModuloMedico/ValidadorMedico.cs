@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using eAgendaMedica.Domínio.Compartilhado;
+using FluentValidation;
 
 
 namespace eAgendaMedica.Dominio.ModuloMedico
@@ -7,7 +8,14 @@ namespace eAgendaMedica.Dominio.ModuloMedico
     {
         public ValidadorMedico()
         {
-            RuleFor(x => x.Nome).NotNull().NotEmpty();
+            RuleFor(x => x.Nome)
+                .NotNull().NotEmpty();
+
+            RuleFor(x => x.Telefone)
+               .Telefone();
+
+            RuleFor(x => x.Crm)
+                    .NotNull().NotEmpty();
         }
     }
 }

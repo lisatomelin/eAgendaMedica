@@ -2,6 +2,7 @@
 using eAgendaMedica.Aplicacao.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.WebApi.ViewModels.CirugiaViewModel;
+using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eAgendaMedica.WebApi.Controllers
@@ -102,6 +103,22 @@ namespace eAgendaMedica.WebApi.Controllers
                 return NotFound(cirurgiaResult.Errors);
 
             return Ok();
+        }
+
+        [HttpGet("medicos/{id}")]
+        [ProducesResponseType(typeof(ListarMedicoViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> SelecionarTodosMedicosCirurgia(Guid id)
+        {
+            var cirurgiaResult = await servicoCirurgia.SelecionarPorIdAsync(id);
+
+            if (cirurgiaResult.IsFailed)
+                return NotFound(cirurgiaResult.Errors);
+
+            var viewModel = mapeador.Map<List<ListarMedicoViewModel>>(cirurgiaResult.Value.ListaMedicos);
+
+            return Ok(viewModel);
         }
 
     }

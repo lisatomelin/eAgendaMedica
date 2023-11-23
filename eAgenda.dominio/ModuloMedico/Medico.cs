@@ -6,7 +6,7 @@ namespace eAgendaMedica.Dominio.ModuloMedico
 {
     public class Medico : Entidade
     {
-        public string CRM { get; set; }
+        public string Crm { get; set; }
         public string Nome { get; set; }
 
         public string Telefone { get; set; }
@@ -20,12 +20,14 @@ namespace eAgendaMedica.Dominio.ModuloMedico
 
         public Medico()
         {
-            
+            Consultas = new List<Consulta>();
+            Cirurgias = new List<Cirurgia>();
+
         }
 
-        public Medico(string cRM, string nome, string telefone)
+        public Medico(string crm, string nome, string telefone)
         {
-            CRM = cRM;
+            Crm = crm;
             Nome = nome;
             Telefone = telefone;
             

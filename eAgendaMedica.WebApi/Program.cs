@@ -1,20 +1,7 @@
 using eAgenda.WebApi.Config;
 using eAgenda.WebApi.Config.AutomapperConfig;
-using eAgendaMedica.Aplicacao.ModuloCirurgia;
-using eAgendaMedica.Aplicacao.ModuloConsulta;
-using eAgendaMedica.Aplicacao.ModuloMedico;
-using eAgendaMedica.Dominio.Compartilhado;
-using eAgendaMedica.Dominio.ModuloCirurgia;
-using eAgendaMedica.Dominio.ModuloConsulta;
-using eAgendaMedica.Dominio.ModuloMedico;
-using eAgendaMedica.Infra.Orm.Compartilhado;
-using eAgendaMedica.Infra.Orm.ModuloCirurgia;
-using eAgendaMedica.Infra.Orm.ModuloConsulta;
-using eAgendaMedica.Infra.Orm.ModuloMedico;
 using eAgendaMedica.WebApi.Config;
-using eAgendaMedica.WebApi.Config.AutoMapperProfiles;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
@@ -26,9 +13,7 @@ namespace eAgendaMedica.WebApi
 
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
+            var builder = WebApplication.CreateBuilder(args);           
 
             builder.Services.AddControllers();
 
@@ -52,8 +37,12 @@ namespace eAgendaMedica.WebApi
             builder.Services.ConfigurarInjecaoDependencia(builder.Configuration);
             builder.Services.ConfigurarSwagger();
 
-            builder.Services.ConfigurarControllers();
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("Desenvolvimento", servicos => servicos.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
 
+            builder.Services.ConfigurarControllers();
 
 
             var app = builder.Build();
@@ -67,10 +56,11 @@ namespace eAgendaMedica.WebApi
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("Desenvolvimento");
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

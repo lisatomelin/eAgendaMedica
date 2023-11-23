@@ -13,17 +13,17 @@ namespace eAgendaMedica.Infra.Orm.ModuloCirurgia
 
         public override Cirurgia SelecionarPorId(Guid id)
         {
-            return registros.Include(x => x.Medicos).SingleOrDefault(x => x.Id == id);
+            return registros.Include(x => x.ListaMedicos).SingleOrDefault(x => x.Id == id);
         }
 
         public override async Task<Cirurgia> SelecionarPorIdAsync(Guid id)
         {
-            return registros.Include(x => x.Medicos).SingleOrDefault(x => x.Id == id);
+            return registros.Include(x => x.ListaMedicos).SingleOrDefault(x => x.Id == id);
         }
 
         public override async Task<List<Cirurgia>> SelecionarTodosAsync()
         {
-            return await registros.Include(x => x.Medicos).ToListAsync();
+            return await registros.Include(x => x.ListaMedicos).ToListAsync();
         }
 
 

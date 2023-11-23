@@ -12,7 +12,7 @@ namespace eAgendaMedica.WebApi.ViewModels.ConsultaViewModel
 
         public Guid MedicoId { get; set; }
 
-        public FormsConsultaViewModel(Guid medicoId)
+        public FormsConsultaViewModel()
         {
             MedicoId = new Guid();
         }

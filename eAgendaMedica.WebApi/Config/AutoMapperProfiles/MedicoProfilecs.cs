@@ -9,12 +9,12 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
         public MedicoProfile()
         {
             CreateMap<Medico, ListarMedicoViewModel>();
-
             CreateMap<Medico, VisualizarMedicoViewModel>();
-
             CreateMap<FormsMedicoViewModel, Medico>();
+            CreateMap<ListarMedicoViewModel, Medico>();
+            CreateMap<Medico, ListarMedicoViewModel>();
 
-           
+
         }
     }
 }
