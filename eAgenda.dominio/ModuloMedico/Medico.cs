@@ -8,34 +8,22 @@ namespace eAgendaMedica.Dominio.ModuloMedico
     {
         public string Crm { get; set; }
         public string Nome { get; set; }
-
         public string Telefone { get; set; }
-
-        public bool Disponivel { get; set; }
-
+        public bool Disponibilidade { get; set; }
         public List<Consulta> Consultas { get; set; }
-
         public List<Cirurgia> Cirurgias { get; set; }
-
 
         public Medico()
         {
-            Consultas = new List<Consulta>();
             Cirurgias = new List<Cirurgia>();
-
+            Consultas = new List<Consulta>();
         }
 
-        public Medico(string crm, string nome, string telefone)
+        public Medico(string crm, string nome, string telefone) : this()
         {
             Crm = crm;
             Nome = nome;
             Telefone = telefone;
-            
         }
     }
-
-
-
-
-
 }

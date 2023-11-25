@@ -9,6 +9,9 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
             RuleFor(x => x.Titulo)
           .NotNull().NotEmpty();
 
+            RuleFor(x => x.Data)
+            .NotNull().NotEmpty();
+
             RuleFor(x => x.HoraInicio)
             .NotNull().NotEmpty();
 

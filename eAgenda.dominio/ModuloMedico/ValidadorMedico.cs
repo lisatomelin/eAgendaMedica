@@ -9,13 +9,13 @@ namespace eAgendaMedica.Dominio.ModuloMedico
         public ValidadorMedico()
         {
             RuleFor(x => x.Nome)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty().Length(2).Matches("^[A-Za-zÀ-ÿ ]+$");
 
             RuleFor(x => x.Telefone)
                .Telefone();
 
             RuleFor(x => x.Crm)
-                    .NotNull().NotEmpty();
+                    .CrmMedico().NotNull().NotEmpty();
         }
     }
 }

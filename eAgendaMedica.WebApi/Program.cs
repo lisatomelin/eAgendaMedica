@@ -1,25 +1,21 @@
 using eAgenda.WebApi.Config;
-using eAgenda.WebApi.Config.AutomapperConfig;
 using eAgendaMedica.WebApi.Config;
+using eAgendaMedica.WebApi.Config.AutomapperConfig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
-namespace eAgendaMedica.WebApi
+namespace NoteKeeper.WebApi
 {
     public class Program
     {
-
-
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);           
-
-            builder.Services.AddControllers();
+            var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.Configure<ApiBehaviorOptions>(config =>
             {
-                config.SuppressModelStateInvalidFilter = true;
+                config.SuppressModelStateInvalidFilter = false;
             });
 
             builder.Services.AddSwaggerGen(c =>
@@ -30,7 +26,6 @@ namespace eAgendaMedica.WebApi
                     Example = new OpenApiString("00:00:00")
                 });
             });
-
 
             builder.Services.ConfigurarSerilog(builder.Logging);
             builder.Services.ConfigurarAutoMapper();
@@ -43,7 +38,6 @@ namespace eAgendaMedica.WebApi
             });
 
             builder.Services.ConfigurarControllers();
-
 
             var app = builder.Build();
 

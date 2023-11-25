@@ -3,16 +3,17 @@ using eAgendaMedica.Aplicacao.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.WebApi.ViewModels.CirugiaViewModel;
 using eAgendaMedica.WebApi.ViewModels.MedicoViewModel;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace eAgendaMedica.WebApi.Controllers
+namespace eAgendaMedica.WebApi.Controllers.ModuloCirurgia
 {
-    [Route("api/cirurgias")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CirurgiaController : ApiControllerBase
     {
-        private readonly ServicoCirurgia servicoCirurgia;
-        private readonly IMapper mapeador;
+        private ServicoCirurgia servicoCirurgia;
+        private IMapper mapeador;
 
         public CirurgiaController(ServicoCirurgia servicoCirurgia, IMapper mapeador)
         {
@@ -20,36 +21,49 @@ namespace eAgendaMedica.WebApi.Controllers
             this.mapeador = mapeador;
         }
 
-
         [HttpGet]
-        [ProducesResponseType(typeof(List<ListarCirurgiaViewModel>), 200)]
+        [ProducesResponseType(typeof(ListarCirurgiaViewModel), 200)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarTodos()
         {
-            var cirurgiasResult = await servicoCirurgia.SelecionarTodosAsync();
+            var cirurgiaResult = await servicoCirurgia.SelecionarTodosAsync();
 
-            var viewModel = mapeador.Map<List<ListarCirurgiaViewModel>>(cirurgiasResult.Value);
+            var viewModel = mapeador.Map<List<ListarCirurgiaViewModel>>(cirurgiaResult.Value);
 
             return Ok(viewModel);
-           
-
         }
-
 
         [HttpGet("visualizacao-completa/{id}")]
         [ProducesResponseType(typeof(VisualizarCirurgiaViewModel), 200)]
+        [ProducesResponseType(typeof(string[]), 404)]
+        [ProducesResponseType(typeof(string[]), 500)]
+        public async Task<IActionResult> SelecionarPorIdCompleto(Guid id)
+        {
+            var cirurgiaResult = await servicoCirurgia.SelecionarPorIdAsync(id);
+
+            if (cirurgiaResult.IsFailed)
+                return NotFound(cirurgiaResult.Errors);
+
+            var viewModel = mapeador.Map<VisualizarCirurgiaViewModel>(cirurgiaResult.Value);
+
+            return Ok(viewModel);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(FormsCirurgiaViewModel), 200)]
         [ProducesResponseType(typeof(string[]), 404)]
         [ProducesResponseType(typeof(string[]), 500)]
         public async Task<IActionResult> SelecionarPorId(Guid id)
         {
             var cirurgiaResult = await servicoCirurgia.SelecionarPorIdAsync(id);
 
-            var viewModel = mapeador.Map<List<VisualizarCirurgiaViewModel>>(cirurgiaResult.Value);
+            if (cirurgiaResult.IsFailed)
+                return NotFound(cirurgiaResult.Errors);
+
+            var viewModel = mapeador.Map<FormsCirurgiaViewModel>(cirurgiaResult.Value);
 
             return Ok(viewModel);
-
         }
-
 
         [HttpPost]
         [ProducesResponseType(typeof(FormsCirurgiaViewModel), 200)]
@@ -68,7 +82,6 @@ namespace eAgendaMedica.WebApi.Controllers
             return Ok(viewModel);
         }
 
-
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(FormsCirurgiaViewModel), 200)]
         [ProducesResponseType(typeof(string[]), 400)]
@@ -83,10 +96,10 @@ namespace eAgendaMedica.WebApi.Controllers
 
             var cirurgia = mapeador.Map(viewModel, selecaoCirurgiaResult.Value);
 
-            var cirurgiaResult = await servicoCirurgia.EditarAsync(cirurgia);
+            var consultaResult = await servicoCirurgia.EditarAsync(cirurgia);
 
-            if (cirurgiaResult.IsFailed)
-                return BadRequest(cirurgiaResult.Errors);
+            if (consultaResult.IsFailed)
+                return BadRequest(consultaResult.Errors);
 
             return Ok(viewModel);
         }
@@ -116,7 +129,7 @@ namespace eAgendaMedica.WebApi.Controllers
             if (cirurgiaResult.IsFailed)
                 return NotFound(cirurgiaResult.Errors);
 
-            var viewModel = mapeador.Map<List<ListarMedicoViewModel>>(cirurgiaResult.Value.ListaMedicos);
+            var viewModel = mapeador.Map<List<ListarMedicoViewModel>>(cirurgiaResult.Value.Medicos);
 
             return Ok(viewModel);
         }

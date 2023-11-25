@@ -6,10 +6,8 @@ namespace eAgendaMedica.Infra.Orm.ModuloMedico
 {
     public class RepositorioMedicoOrm : RepositorioBase<Medico>, IRepositorioMedico
     {
-
-        public RepositorioMedicoOrm(IContextoPersistencia dbContext) : base(dbContext)
+        public RepositorioMedicoOrm(IContextoPersistencia ctx) : base(ctx)
         {
-
         }
 
         public List<Medico> SelecionarMuitos(List<Guid> idsMedicosSelecionados)
@@ -21,9 +19,5 @@ namespace eAgendaMedica.Infra.Orm.ModuloMedico
         {
             return medicos.Select(medico => medico.Id).ToList();
         }
-
-       
-
-
     }
 }

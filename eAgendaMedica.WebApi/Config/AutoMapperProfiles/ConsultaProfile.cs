@@ -9,9 +9,9 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
         public ConsultaProfile()
         {
             CreateMap<Consulta, ListarConsultaViewModel>()
-                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
-                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")))
-                 .ForMember(destino => destino.NomeMedico, opt => opt.MapFrom(origem => origem.Medico.Nome));
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
+                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")))
+                .ForMember(destino => destino.NomeMedico, opt => opt.MapFrom(origem => origem.Medico.Nome));
 
             CreateMap<Consulta, VisualizarConsultaViewModel>()
                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
@@ -23,10 +23,8 @@ namespace eAgendaMedica.WebApi.Config.AutoMapperProfiles
                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
 
             CreateMap<Consulta, FormsConsultaViewModel>()
-                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
         }
-
-        
     }
 }

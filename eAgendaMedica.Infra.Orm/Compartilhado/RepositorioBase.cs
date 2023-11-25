@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eAgendaMedica.Infra.Orm.Compartilhado
 {
-
-
     public class RepositorioBase<TEntidade> where TEntidade : Entidade
     {
         protected eAgendaMedicaDbContext dbContext;
@@ -21,7 +19,6 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
             await registros.AddAsync(registro);
 
             return true;
-
         }
 
         public void Editar(TEntidade registro)
@@ -39,9 +36,9 @@ namespace eAgendaMedica.Infra.Orm.Compartilhado
             return registros.SingleOrDefault(x => x.Id == id);
         }
 
-        public async virtual Task<TEntidade> SelecionarPorIdAsync(Guid Id)
+        public async virtual Task<TEntidade> SelecionarPorIdAsync(Guid id)
         {
-            return await registros.SingleOrDefaultAsync(x => x.Id == Id);
+            return await registros.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async virtual Task<List<TEntidade>> SelecionarTodosAsync()

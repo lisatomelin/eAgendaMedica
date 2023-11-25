@@ -2,7 +2,6 @@
 using eAgendaMedica.Dominio.ModuloCirurgia;
 using FluentResults;
 
-
 namespace eAgendaMedica.Aplicacao.ModuloCirurgia
 {
     public class ServicoCirurgia
@@ -28,7 +27,6 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
             await contextoPersistencia.GravarAsync();
 
             return Result.Ok(cirurgia);
-
         }
 
         public async Task<Result<Cirurgia>> EditarAsync(Cirurgia cirurgia)
@@ -38,19 +36,16 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
             if (resultadoValidacao.IsFailed)
                 return Result.Fail(resultadoValidacao.Errors);
 
-
             repositorioCirurgia.Editar(cirurgia);
 
             await contextoPersistencia.GravarAsync();
 
             return Result.Ok(cirurgia);
-
         }
 
         public async Task<Result> ExcluirAsync(Guid id)
         {
             var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(id);
-
 
             if (cirurgia == null)
                 return Result.Fail($"Cirurgia {id} não encontrada");
@@ -60,19 +55,18 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
             await contextoPersistencia.GravarAsync();
 
             return Result.Ok();
-
         }
 
         public async Task<Result<List<Cirurgia>>> SelecionarTodosAsync()
         {
-            var cirurgias = await repositorioCirurgia.SelecionarTodosAsync();
+            var cirurgia = await repositorioCirurgia.SelecionarTodosAsync();
 
-            return Result.Ok(cirurgias);
+            return Result.Ok(cirurgia);
         }
 
-        public async Task<Result<Cirurgia>> SelecionarPorIdAsync(Guid Id)
+        public async Task<Result<Cirurgia>> SelecionarPorIdAsync(Guid id)
         {
-            var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(Id);
+            var cirurgia = await repositorioCirurgia.SelecionarPorIdAsync(id);
 
             return Result.Ok(cirurgia);
         }
@@ -86,9 +80,7 @@ namespace eAgendaMedica.Aplicacao.ModuloCirurgia
             List<Error> erros = new List<Error>();
 
             foreach (var erro in resultadoValidacao.Errors)
-
                 erros.Add(new Error(erro.ErrorMessage));
-
 
             if (erros.Any())
                 return Result.Fail(erros.ToArray());

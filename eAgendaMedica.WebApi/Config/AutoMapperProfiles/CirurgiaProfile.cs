@@ -10,8 +10,8 @@ namespace E_AgendaMedicaApi.Config.AutomapperConfig
         public CirurgiaProfile()
         {
             CreateMap<Cirurgia, ListarCirurgiaViewModel>()
-            .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
-            .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
+                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")));
 
             CreateMap<Cirurgia, VisualizarCirurgiaViewModel>()
                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
@@ -20,12 +20,12 @@ namespace E_AgendaMedicaApi.Config.AutomapperConfig
             CreateMap<FormsCirurgiaViewModel, Cirurgia>()
                 .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
                 .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")))
-                .ForMember(destino => destino.ListaMedicos, opt => opt.Ignore())
+                .ForMember(destino => destino.Medicos, opt => opt.Ignore())
                 .AfterMap<FormsCirurgiaMappingAction>();
 
             CreateMap<Cirurgia, FormsCirurgiaViewModel>()
-                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh:mm")))
-                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh:mm")))
+                .ForMember(destino => destino.HoraInicio, opt => opt.MapFrom(origem => origem.HoraInicio.ToString(@"hh\:mm")))
+                .ForMember(destino => destino.HoraTermino, opt => opt.MapFrom(origem => origem.HoraTermino.ToString(@"hh\:mm")))
                 .ForMember(destino => destino.MedicosSelecionados, opt => opt.Ignore())
                 .AfterMap<FormsCirurgiaMappingActionInverso>();
         }
@@ -42,7 +42,7 @@ namespace E_AgendaMedicaApi.Config.AutomapperConfig
 
         public void Process(FormsCirurgiaViewModel viewModel, Cirurgia cirurgia, ResolutionContext context)
         {
-            cirurgia.ListaMedicos = repositorioMedico.SelecionarMuitos(viewModel.MedicosSelecionados);
+            cirurgia.Medicos = repositorioMedico.SelecionarMuitos(viewModel.MedicosSelecionados);
         }
     }
 
@@ -57,8 +57,7 @@ namespace E_AgendaMedicaApi.Config.AutomapperConfig
 
         public void Process(Cirurgia destination, FormsCirurgiaViewModel source, ResolutionContext context)
         {
-            source.MedicosSelecionados = repositorioMedico.SelecionarMuitos(destination.ListaMedicos);
+            source.MedicosSelecionados = repositorioMedico.SelecionarMuitos(destination.Medicos);
         }
     }
-
 }
