@@ -1,29 +1,27 @@
 ﻿using FluentValidation;
 
-
 namespace eAgendaMedica.Dominio.ModuloCirurgia
 {
     public class ValidadorCirurgia : AbstractValidator<Cirurgia>
     {
-
         public ValidadorCirurgia()
         {
             RuleFor(x => x.Titulo)
-            .NotNull().NotEmpty();
-
-            RuleFor(x => x.Data)
-           .NotNull().NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.HoraInicio)
-            .NotNull().NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.HoraTermino)
-            .NotNull().NotEmpty(); RuleFor(x => x.Titulo).NotNull().NotEmpty();
+                .NotNull().NotEmpty();
 
+            RuleFor(x => x.Titulo)
+                .MinimumLength(3)
+                .WithMessage("O título da consulta deve ter no mínimo 3 caracteres.");
 
-            RuleFor(x => x.Medicos)
-                .NotNull().NotEmpty().WithMessage("A cirurgia deve ter pelo menos um médico.")
-                .Must(medicos => medicos != null && medicos.Count > 0).WithMessage("A cirurgia deve ter pelo menos um médico.");
+            RuleFor(x => x.Titulo)
+                .Matches("^[a-zA-Z0-9]*$")
+                .WithMessage("'Titulo' deve ser composto por letras e números.");
         }
     }
 }

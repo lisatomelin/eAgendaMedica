@@ -3,76 +3,87 @@ using eAgendaMedica.TestesIntegracao.Compartilhado;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace eAgendaMedica.TestesIntegracao.ModuloMedico
+namespace eAgendaMedica.TesteIntegracao.ModuloMedico
 {
     [TestClass]
     public class RepositorioMedicoEmOrmTest : TestesIntegracaoBase
     {
+
         [TestMethod]
         public async Task Deve_Inserir_Medico()
         {
-            // Criação do médico
             var medico = Builder<Medico>.CreateNew().Build();
 
-            // Inserção assíncrona do médico
             await repositorioMedico.InserirAsync(medico);
 
-            // Gravação assíncrona no contexto
             await contextoPersistencia.GravarAsync();
 
-            // Seleção assíncrona do médico pelo ID
             var medicoSelecionado = await repositorioMedico.SelecionarPorIdAsync(medico.Id);
 
-            // Verificação usando FluentAssertions
             medicoSelecionado.Should().BeEquivalentTo(medico);
         }
 
+        [TestMethod]
+        public async Task Deve_Editar_Medico()
+        {
+            var medicoId = Builder<Medico>.CreateNew().Persist().Id;
 
-        //[TestMethod]
-        //public async Task Deve_Editar_Medico()
-        //{
-        //    // Criação e persistência assíncrona de um médico
-        //    var medicoId = Builder<Medico>.CreateNew().Persist().Id;
+            var medico = await repositorioMedico.SelecionarPorIdAsync(medicoId);
 
-        //    // Seleção assíncrona do médico pelo ID
-        //    var medico = await repositorioMedico.SelecionarPorIdAsync(medicoId);
+            medico.Nome = "Camila";
 
-        //    // Edição do nome do médico
-        //    medico.Nome = "Cleiton";
+            repositorioMedico.Editar(medico);
 
-        //    // Edição assíncrona do médico no repositório
-        //    await repositorioMedico.EditarAsync(medico);
+            await contextoPersistencia.GravarAsync();
 
-        //    // Gravação assíncrona no contexto
-        //    await contextoPersistencia.GravarAsync();
+            var medicoEditado = await repositorioMedico.SelecionarPorIdAsync(medico.Id);
 
-        //    // Seleção síncrona do médico pelo ID e verificação usando FluentAssertions
-        //    repositorioMedico.SelecionarPorIdAsync(medico.Id).Should().BeEquivalentTo(medico);
-        //}
-
+            medicoEditado.Should().BeEquivalentTo(medico);
+        }
 
         [TestMethod]
         public async Task Deve_Excluir_Medico()
         {
-            // Criação e persistência assíncrona de um médico
             var medico = Builder<Medico>.CreateNew().Persist();
 
-            // Exclusão assíncrona do médico no repositório
-             repositorioMedico.Excluir(medico);
+            repositorioMedico.Excluir(medico);
 
-            // Gravação assíncrona no contexto
             await contextoPersistencia.GravarAsync();
 
-            // Seleção assíncrona do médico pelo ID e verificação se é nulo usando FluentAssertions
-           var medicoResposta = await repositorioMedico.SelecionarPorIdAsync(medico.Id);
+            var medicoResposta = await repositorioMedico.SelecionarPorIdAsync(medico.Id);
 
             medicoResposta.Should().BeNull();
         }
+
+        [TestMethod]
+        public async Task Deve_selecionar_todos_Medico()
+        {
+            // Arrange
+            var medico1 = Builder<Medico>.CreateNew().Persist();
+            var medico2 = Builder<Medico>.CreateNew().Persist();
+
+            // Act
+            var medicos = await repositorioMedico.SelecionarTodosAsync();
+
+            // Assert
+            medicos.Should().NotBeEmpty();
+            medicos.Should().Contain(medico1);
+            medicos.Should().Contain(medico2);
+        }
+
+        [TestMethod]
+        public async Task Deve_selecionar_medico_por_id()
+        {
+            // Arrange
+            var medico = Builder<Medico>.CreateNew().Persist();
+
+            // Act
+            var medicoEncontrado = await repositorioMedico.SelecionarPorIdAsync(medico.Id);
+
+            // Assert
+            medicoEncontrado.Should().Be(medico);
+        }
     }
 }
+

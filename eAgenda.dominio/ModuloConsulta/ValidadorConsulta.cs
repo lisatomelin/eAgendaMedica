@@ -7,16 +7,17 @@ namespace eAgendaMedica.Dominio.ModuloConsulta
         public ValidadorConsulta()
         {
             RuleFor(x => x.Titulo)
-          .NotNull().NotEmpty();
-
-            RuleFor(x => x.Data)
-            .NotNull().NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.HoraInicio)
-            .NotNull().NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.HoraTermino)
-            .NotNull().NotEmpty();
+                .NotNull().NotEmpty();
+
+            RuleFor(x => x.Titulo)
+                .MinimumLength(3)
+                .WithMessage("O título da consulta deve ter no mínimo 3 caracteres.");
         }
     }
 }
