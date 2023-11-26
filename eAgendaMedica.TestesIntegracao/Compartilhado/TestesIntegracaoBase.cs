@@ -29,7 +29,7 @@ namespace eAgendaMedica.TestesIntegracao.Compartilhado
 
             var optionsBuilder = new DbContextOptionsBuilder<eAgendaMedicaDbContext>();
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
 
             var dbContext = new eAgendaMedicaDbContext(optionsBuilder.Options);
 

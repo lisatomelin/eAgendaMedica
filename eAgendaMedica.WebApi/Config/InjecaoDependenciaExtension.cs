@@ -19,7 +19,7 @@ namespace eAgendaMedica.WebApi.Config
     {
         public static void ConfigurarInjecaoDependencia(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("SqlServer");
+            var connectionString = configuration.GetConnectionString("PosgreSql");
 
             services.AddDbContext<IContextoPersistencia, eAgendaMedicaDbContext>(optionsBuilder =>
             {
