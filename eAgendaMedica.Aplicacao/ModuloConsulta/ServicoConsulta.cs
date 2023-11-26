@@ -1,4 +1,5 @@
 ﻿using eAgendaMedica.Dominio.Compartilhado;
+using eAgendaMedica.Dominio.ModuloCirurgia;
 using eAgendaMedica.Dominio.ModuloConsulta;
 using FluentResults;
 
@@ -6,27 +7,31 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 {
     public class ServicoConsulta
     {
-        private readonly IRepositorioConsulta repositorioConsulta;
-        private readonly IContextoPersistencia contextoPersistencia;
+        private IRepositorioConsulta repositorioConsulta;
+        private IRepositorioCirurgia repositorioCirurgia;
+        private IContextoPersistencia contextoPersistencia;
 
-        public ServicoConsulta(IRepositorioConsulta repositorioConsulta, IContextoPersistencia contextoPersistencia)
+        public ServicoConsulta(
+            IRepositorioConsulta repositorioConsulta,
+            IRepositorioCirurgia repositorioCirurgia,
+            IContextoPersistencia contexto)
         {
             this.repositorioConsulta = repositorioConsulta;
-            this.contextoPersistencia = contextoPersistencia;
+            this.repositorioCirurgia = repositorioCirurgia;
+            this.contextoPersistencia = contexto;
         }
-
         public async Task<Result<Consulta>> InserirAsync(Consulta consulta)
         {
-            var existe = await repositorioConsulta.ExisteConsultaNesseHorarioPorMedicoId(consulta);
+            TimeSpan periodoDescanso = TimeSpan.FromMinutes(20);
 
-            //var existe2 = await repositorioCirurgia.ExisteCirurgiasNesseHorarioPorMedicoId(consulta.MedicoId);
+            consulta.HoraTermino += periodoDescanso;
 
-            if (existe)
-                return Result.Fail("Horário indísponivel");
-            var resultadoValidacao = ValidarConsulta(consulta);
+            var JaExisteConsulta = await repositorioConsulta.ExisteConsultaNesseHorarioPorMedicoId(consulta.MedicoId, consulta.HoraInicio, consulta.HoraTermino, consulta.Data);
 
-            if (resultadoValidacao.IsFailed)
-                return Result.Fail(resultadoValidacao.Errors);
+            var JaExisteCirurgia = await repositorioCirurgia.ExisteCirurgiasNesseHorarioPorMedicoId(consulta.MedicoId, consulta.HoraInicio, consulta.HoraTermino, consulta.Data);
+
+            if (JaExisteConsulta || JaExisteCirurgia)
+                return Result.Fail("Horário indísponivel");            
 
             await repositorioConsulta.InserirAsync(consulta);
 

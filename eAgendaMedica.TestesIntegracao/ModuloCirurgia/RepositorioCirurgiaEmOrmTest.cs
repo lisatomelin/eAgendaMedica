@@ -84,5 +84,7 @@ namespace eAgendaMedica.TesteIntegracao.ModuloCirurgia
             // Assert
             cirurgiaEncontrada.Should().Be(cirurgia);
         }
+
+
     }
 }
