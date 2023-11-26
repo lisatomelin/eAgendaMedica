@@ -31,7 +31,12 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
             var JaExisteCirurgia = await repositorioCirurgia.ExisteCirurgiasNesseHorarioPorMedicoId(consulta.MedicoId, consulta.HoraInicio, consulta.HoraTermino, consulta.Data);
 
             if (JaExisteConsulta || JaExisteCirurgia)
-                return Result.Fail("Horário indísponivel");            
+                return Result.Fail("Horário indísponivel");
+
+            var resultadoValidacao = ValidarConsulta(consulta);
+
+            if (resultadoValidacao.IsFailed)
+                return Result.Fail(resultadoValidacao.Errors);
 
             await repositorioConsulta.InserirAsync(consulta);
 

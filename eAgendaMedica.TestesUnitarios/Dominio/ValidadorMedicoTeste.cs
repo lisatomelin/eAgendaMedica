@@ -32,7 +32,7 @@ namespace eAgendaMedica.TestesUnitarios.Dominio
         [TestMethod]
         public void Nome_medico_deve_ter_no_minimo_2_caracteres()
         {
-            medico.Nome = "Kate";
+            medico.Nome = "K";
 
             var resultado = validador.TestValidate(medico);
 
@@ -42,7 +42,7 @@ namespace eAgendaMedica.TestesUnitarios.Dominio
         [TestMethod]
         public void Nome_medico_deve_ser_composto_por_letras()
         {
-            medico.Nome = "KateDog";
+            medico.Nome = "Kate12";
 
             var resultado = validador.TestValidate(medico);
 
