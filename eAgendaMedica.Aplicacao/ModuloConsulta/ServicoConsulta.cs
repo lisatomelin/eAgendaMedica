@@ -17,6 +17,12 @@ namespace eAgendaMedica.Aplicacao.ModuloConsulta
 
         public async Task<Result<Consulta>> InserirAsync(Consulta consulta)
         {
+            var existe = await repositorioConsulta.ExisteConsultaNesseHorarioPorMedicoId(consulta);
+
+            //var existe2 = await repositorioCirurgia.ExisteCirurgiasNesseHorarioPorMedicoId(consulta.MedicoId);
+
+            if (existe)
+                return Result.Fail("Horário indísponivel");
             var resultadoValidacao = ValidarConsulta(consulta);
 
             if (resultadoValidacao.IsFailed)
