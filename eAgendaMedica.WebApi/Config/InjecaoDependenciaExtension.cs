@@ -19,11 +19,11 @@ namespace eAgendaMedica.WebApi.Config
     {
         public static void ConfigurarInjecaoDependencia(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("PosgreSql");
+            var connectionString = configuration.GetConnectionString("PostgreSql");
 
             services.AddDbContext<IContextoPersistencia, eAgendaMedicaDbContext>(optionsBuilder =>
             {
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseNpgsql(connectionString);
             });
 
             services.AddTransient<IRepositorioMedico, RepositorioMedicoOrm>();

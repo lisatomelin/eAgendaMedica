@@ -12,7 +12,7 @@ using eAgendaMedica.Infra.Orm.Compartilhado;
 namespace eAgendaMedica.Infra.Orm.Migrations
 {
     [DbContext(typeof(eAgendaMedicaDbContext))]
-    [Migration("20231126222158_postgreMigration")]
+    [Migration("20231127164947_postgreMigration")]
     partial class postgreMigration
     {
         /// <inheritdoc />
